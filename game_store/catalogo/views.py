@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 def lista_juegos(request):
     juegos = Juego.objects.all().order_by('id')
 
-    paginator = Paginator(juegos, 6)  # Mostrar 6 juegos por página
+    paginator = Paginator(juegos, 9)  # Mostrar 6 juegos por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)  
 

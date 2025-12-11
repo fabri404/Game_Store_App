@@ -1,59 +1,90 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Catalogo - Game Store{% endblock %}
+{% block title %}Catálogo - Game Store{% endblock %}
 
 {% block content %}
-  <h1 class="text-body">Lista de Juegos</h1>
-  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+          <h1 class="text-body mb-1">Catálogo de Juegos</h1>
+          <p class="text-muted mb-0">Explora nuestros títulos disponibles y elige tu próxima aventura.</p>
+      </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
     {% for juego in lista_juegos %}
       <div class="col">
-        <div class="card h-100">
-          <img src="{% static 'img/fondo.jpg' %}" class="card-img-top" alt="Imagen genérica">
-          <div class="card-body">
-            <h5 class="card-title">{{ juego.nombre }}</h5>
-            <p class="card-text">Plataforma: {{ juego.plataforma }}</p>
-            <p class="card-text">Precio: {{ juego.precio }} $</p>
+        <div class="card h-100 shadow-sm border-0 bg-dark-subtle">
+          <div class="position-relative">
+            <img src="{% static 'img/fondo.jpg' %}" class="card-img-top" alt="Portada genérica del juego">
           </div>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-body fw-semibold">{{ juego.nombre }}</h5>
+            <p class="card-text mb-1">
+                <span class="text-muted small">Plataforma:</span>
+                <span class="fw-medium">{{ juego.plataforma }}</span>
+            </p>
+            <p class="card-text mb-3">
+                <span class="badge bg-success fs-6">
+                    {{ juego.precio }} $
+                </span>
+            </p>
+
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+                <button type="button" class="btn btn-outline-primary btn-sm">
+                    Ver detalles
+                </button>
+                <!-- Botón “Agregar al carrito” decorativo (sin lógica de backend) -->
+                <button type="button" class="btn btn-primary btn-sm">
+                    Agregar al carrito
+                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col">
+        <div class="alert alert-info">
+          No hay juegos cargados en el catálogo por el momento.
         </div>
       </div>
     {% endfor %}
   </div>
   
-<!-- Paginación -->
-<nav aria-label="Paginación" class="mt-4">
-    <ul class="pagination justify-content-center">
-        {% if lista_juegos.has_previous %}
-        <li class="page-item">
-            <a class="page-link" href="?page=1">Primera</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="?page={{ lista_juegos.previous_page_number }}">Anterior</a>
-        </li>
-        {% else %}
-        <li class="page-item disabled"><span class="page-link">Primera</span></li>
-        <li class="page-item disabled"><span class="page-link">Anterior</span></li>
-        {% endif %}
+  <!-- Paginación -->
+  <nav aria-label="Paginación" class="mt-4">
+      <ul class="pagination justify-content-center">
+          {% if lista_juegos.has_previous %}
+          <li class="page-item">
+              <a class="page-link" href="?page=1">Primera</a>
+          </li>
+          <li class="page-item">
+              <a class="page-link" href="?page={{ lista_juegos.previous_page_number }}">Anterior</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled"><span class="page-link">Primera</span></li>
+          <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+          {% endif %}
 
-        {% for num in lista_juegos.paginator.page_range %}
-        {% if lista_juegos.number == num %}
-        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-        {% elif num > lista_juegos.number|add:'-3' and num < lista_juegos.number|add:'3' %}
-        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-        {% endif %}
-        {% endfor %}
+          {% for num in lista_juegos.paginator.page_range %}
+              {% if lista_juegos.number == num %}
+                  <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+              {% elif num > lista_juegos.number|add:'-3' and num < lista_juegos.number|add:'3' %}
+                  <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+              {% endif %}
+          {% endfor %}
 
-        {% if lista_juegos.has_next %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ lista_juegos.next_page_number }}">Siguiente</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="?page={{ lista_juegos.paginator.num_pages }}">Última</a>
-        </li>
-        {% else %}
-        <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
-        <li class="page-item disabled"><span class="page-link">Última</span></li>
-        {% endif %}
-    </ul>
-</nav>
+          {% if lista_juegos.has_next %}
+          <li class="page-item">
+              <a class="page-link" href="?page={{ lista_juegos.next_page_number }}">Siguiente</a>
+          </li>
+          <li class="page-item">
+              <a class="page-link" href="?page={{ lista_juegos.paginator.num_pages }}">Última</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+          <li class="page-item disabled"><span class="page-link">Última</span></li>
+          {% endif %}
+      </ul>
+  </nav>
 {% endblock %}

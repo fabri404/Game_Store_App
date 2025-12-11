@@ -1,27 +1,50 @@
 {% extends 'base.html' %}
-{% load static%}
+{% load static %}
 
 {% block title %}Contacto - Game Store{% endblock %}
 
-
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-body">Contacto</h1>
-    <p class="text-body">Envía un correo al creador del proyecto: fabri404lopez@gmail.com
-    </p>
+<div class="container-sm mt-4">
+    <h1 class="text-body mb-3">CONTACTO</h1>
 
-    <div class="alert alert-primary">Repositorio de 
-       <a href="https://github.com/fabri404/Game_Store_App" class="text-body">
-          Github.
-       </a>
+    <div class="card bg-dark-subtle border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title text-body">Correo electrónico</h5>
+            <p class="card-text">
+                Envíá un correo al creador del proyecto:
+                <span class="fw-semibold">fabri404lopez@gmail.com</span>
+            </p>
+        </div>
     </div>
-    <div class="alert alert-warning">Contacto via 
-      <a href="https://www.linkedin.com/in/adriel-lopez/" class="text-body">
-          Linkedin.
-       </a>
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="alert alert-primary h-100 mb-0 d-flex flex-column justify-content-between">
+                <div>
+                    <h5 class="alert-heading">Repositorio en GitHub</h5>
+                    <p class="mb-2">Revisa el código fuente completo del proyecto.</p>
+                </div>
+                <a href="https://github.com/fabri404/Game_Store_App" class="btn btn-outline-light mt-2">
+                    Ir al repositorio
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="alert alert-warning h-100 mb-0 d-flex flex-column justify-content-between">
+                <div>
+                    <h5 class="alert-heading">Perfil de LinkedIn</h5>
+                    <p class="mb-2">Conecta en LinkedIn para más proyectos y colaboraciones.</p>
+                </div>
+                <a href="https://www.linkedin.com/in/adriel-lopez/" class="btn btn-outline-dark mt-2">
+                    Ver perfil en LinkedIn
+                </a>
+            </div>
+        </div>
     </div>
-    <div class="alert alert-danger">Este es una demostracion del uso de tecnologias back-end.</div>
+
+    <div class="alert alert-danger mt-4 mb-0">
+        Este sitio es una demostración del uso de tecnologías back-end (Django, base de datos, etc.) con un front-end sencillo de ejemplo.
+    </div>
 </div>
-
 {% endblock %}
-
