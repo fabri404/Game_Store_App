@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Catalogo - Game Store{% endblock %}
+
+{% block content %}
+  <h1 class="text-body">Lista de Juegos</h1>
+  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+    {% for juego in lista_juegos %}
+      <div class="col">
+        <div class="card h-100">
+          <img src="{% static 'img/fondo.jpg' %}" class="card-img-top" alt="Imagen genérica">
+          <div class="card-body">
+            <h5 class="card-title">{{ juego.nombre }}</h5>
+            <p class="card-text">Plataforma: {{ juego.plataforma }}</p>
+            <p class="card-text">Precio: {{ juego.precio }} $</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
