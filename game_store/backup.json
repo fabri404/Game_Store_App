@@ -1,0 +1,109 @@
+[
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$itBXqq0eVFvbpowUCldYIr$fRL60R9qzSJWF6NgnpR09ktebC/7R4pNejQAwe5vlMM=",
+        "last_login": "2025-12-11T01:17:49.216Z",
+        "is_superuser": true,
+        "username": "fabri404",
+        "first_name": "",
+        "last_name": "",
+        "email": "fabri404lopez@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-12-11T01:17:10.893Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "catalogo.juego",
+    "pk": 1,
+    "fields": {
+        "nombre": "Baldur's Gate 3",
+        "precio": "59.99",
+        "plataforma": "PC, PS5, Xbox Series X|S"
+    }
+},
+{
+    "model": "catalogo.juego",
+    "pk": 2,
+    "fields": {
+        "nombre": "Elden Ring: Shadow of the Erdtree",
+        "precio": "39.99",
+        "plataforma": "PC, PS5, Xbox Series X|S"
+    }
+},
+{
+    "model": "catalogo.juego",
+    "pk": 3,
+    "fields": {
+        "nombre": "Hogwarts Legacy",
+        "precio": "49.99",
+        "plataforma": "PC, PS5, Xbox Series X|S, Switch"
+    }
+},
+{
+    "model": "catalogo.juego",
+    "pk": 4,
+    "fields": {
+        "nombre": "Starfield",
+        "precio": "59.99",
+        "plataforma": "PC, Xbox Series X|S"
+    }
+},
+{
+    "model": "catalogo.juego",
+    "pk": 5,
+    "fields": {
+        "nombre": "Dragon's Dogma 2",
+        "precio": "69.99",
+        "plataforma": "PC, PS5, Xbox Series X|S"
+    }
+},
+{
+    "model": "catalogo.juego",
+    "pk": 6,
+    "fields": {
+        "nombre": "Black Myth: Wukong",
+        "precio": "69.99",
+        "plataforma": "PC, PS5, Xbox Series X|S"
+    }
+},
+{
+    "model": "catalogo.juego",
+    "pk": 7,
+    "fields": {
+        "nombre": "Call of Duty: Black Ops 6",
+        "precio": "69.99",
+        "plataforma": "PC, PS5, Xbox Series X|S"
+    }
+},
+{
+    "model": "catalogo.juego",
+    "pk": 8,
+    "fields": {
+        "nombre": "Final Fantasy VII Rebirth",
+        "precio": "69.99",
+        "plataforma": "PS5"
+    }
+},
+{
+    "model": "catalogo.juego",
+    "pk": 9,
+    "fields": {
+        "nombre": "The Legend of Zelda: Tears of the Kingdom",
+        "precio": "59.99",
+        "plataforma": "Switch"
+    }
+},
+{
+    "model": "catalogo.juego",
+    "pk": 10,
+    "fields": {
+        "nombre": "Helldivers 2",
+        "precio": "39.99",
+        "plataforma": "PC, PS5"
+    }
+}
+]

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalogo',
     'home',
-    #'static',
+    'static',
     ]
 
 MIDDLEWARE = [
@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'game_store.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres_game_store',
+        'USER': 'postgres',
+        'PASSWORD': '44578368',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
