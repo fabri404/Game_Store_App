@@ -11,6 +11,22 @@
       </div>
   </div>
 
+  <form method="get">
+  <input type="text" name="q" placeholder="Buscar..." value="{{ q }}">
+
+  <input type="text" name="plataforma" placeholder="Plataforma" value="{{ plataforma }}">
+
+  <select name="order">
+    <option value="">Ordenar...</option>
+    <option value="precio" {% if order == "precio" %}selected{% endif %}>Precio ↑</option>
+    <option value="-precio" {% if order == "-precio" %}selected{% endif %}>Precio ↓</option>
+    <option value="nombre" {% if order == "nombre" %}selected{% endif %}>Nombre ↑</option>
+    <option value="-nombre" {% if order == "-nombre" %}selected{% endif %}>Nombre ↓</option>
+  </select>
+
+  <button type="submit">Aplicar</button>
+</form>
+
   <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
     {% for juego in lista_juegos %}
       <div class="col">
