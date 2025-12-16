@@ -13,9 +13,14 @@
   </div>
 
   <form method="get">
-  <input type="text" name="q" placeholder="Buscar..." value="{{ q }}">
+  <input type="text" name="q" placeholder="Buscar por Nombre..." value="{{ q }}"/>
 
-  <input type="text" name="plataforma" placeholder="Plataforma" value="{{ plataforma }}">
+  <select name="plat">
+    <option value="">Todas las plataformas</option>
+    {% for p in platform_categories %}
+      <option value="{{ p }}" {% if plat == p %}selected{% endif %}>{{ p }}</option>
+    {% endfor %}
+  </select>
 
   <select name="order">
     <option value="">Ordenar...</option>
@@ -26,7 +31,8 @@
   </select>
 
   <button type="submit">Aplicar</button>
-</form>
+
+  </form>
 
   <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
     {% for juego in lista_juegos %}
