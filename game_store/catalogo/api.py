@@ -1,11 +1,13 @@
-from django.http import Http404
+from django.db import IntegrityError
 
-from rest_framework import viewsets, filters
-from rest_framework.exceptions import NotFound
+from rest_framework import viewsets, filters, status
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Juego
-from .serializers import JuegoSerializer
+from .serializers import JuegoSerializer, JuegoCreateWithIdSerializer
 from .permissions import IsSuperUserOrReadOnly
 
 
@@ -20,12 +22,28 @@ class JuegoViewSet(viewsets.ModelViewSet):
     ordering_fields = ["id", "nombre", "precio"]
     ordering = ["id"]
 
-    def get_object(self):
+    @action(
+        detail=False,
+        methods=["post"],
+        url_path="with-id",
+        serializer_class=JuegoCreateWithIdSerializer,
+    )
+    def create_with_id(self, request):
         """
-        Personaliza el mensaje 404 cuando el ID no existe,
-        sin ocultar errores reales del servidor.
+        POST /api/juegos/with-id/
+        Crea un juego usando el ID provisto.
         """
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
         try:
-            return super().get_object()
-        except Http404:
-            raise NotFound("No existe un juego con el ID solicitado.")
+            obj = serializer.save()
+        except IntegrityError:
+            # Puede ser por ID ya existente o por unique de nombre en DB
+            return Response(
+                {"detail": "No se pudo crear: el ID ya existe o viola una restricción de unicidad."},
+                status=status.HTTP_409_CONFLICT,
+            )
+
+        # Responder con el serializer normal (mismo formato que el resto del API)
+        return Response(JuegoSerializer(obj).data, status=status.HTTP_201_CREATED)

@@ -8,3 +8,7 @@ class JuegoAdmin(admin.ModelAdmin):
     list_filter = ("plataforma",)
     ordering = ("id",)
     list_per_page = 25
+
+    def precio_2d(self, obj):
+        return f"{obj.precio:.2f}"
+    precio_2d.short_description = "Precio"
