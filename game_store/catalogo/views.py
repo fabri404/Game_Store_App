@@ -1,10 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
-
 from .models import Juego
 
-PLATFORM_CATEGORIES = ["PC", "PS5", "PS4", "Xbox Series X", "Switch"]  # tus 5 categorías
+PLATFORM_CATEGORIES = ["PC", "PS5", "PS4","PS3", "Xbox Series X", "Xbox Series S", "Switch", 'Switch Oled', 'Switch 2']  # tus categorías
 
 
 def _filter_by_platform_token(qs, token: str):
@@ -45,3 +44,11 @@ def lista_juegos(request):
         "platform_categories": PLATFORM_CATEGORIES,
     }
     return render(request, "catalogo/lista_juegos.html", context)
+
+
+def detalle_juego(request, pk):
+    juego= get_object_or_404(Juego, pk= pk)
+    context = {
+        "juego": juego,
+    }
+    return render(request, "catalogo/product_detail.html", context)
