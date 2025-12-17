@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "drf_spectacular",
-    'users',
+    'usuarios',
     ]
 
 REST_FRAMEWORK = {
@@ -140,7 +140,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-AUTH_USER_MODEL = 'users.CustomUser'
-LOGIN_URL = 'login' 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+AUTH_USER_MODEL = "usuarios.Usuario"
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'login'
