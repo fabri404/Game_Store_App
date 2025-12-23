@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     'usuarios',
     'carrito',
-    'favorito',
+    'favoritos',
     ]
 
 REST_FRAMEWORK = {
@@ -83,6 +83,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'carrito.context_processors.carrito_total',
+                'favoritos.context_processors.favoritos_total_items',
             ],
         },
     },
