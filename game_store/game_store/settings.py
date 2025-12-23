@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_spectacular",
     'usuarios',
-    'carrito'
+    'carrito',
+    'favorito',
     ]
 
 REST_FRAMEWORK = {
