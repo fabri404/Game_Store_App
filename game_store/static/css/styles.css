@@ -1,0 +1,52 @@
+/* static/css/style.css */
+
+/* Ajustes generales */
+body {
+  letter-spacing: 0.2px;
+}
+
+a { text-decoration: none; }
+
+/* Cards del catálogo */
+.juego-card {
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.juego-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+}
+
+/* Imágenes consistentes en cards */
+.juego-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Imagen de detalle */
+.detalle-img {
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: cover;
+}
+
+/* Badge del navbar (carrito/favs) */
+.navbar .badge.small {
+  font-size: 0.70rem;
+  padding: .35em .55em;
+}
+
+/* Footer un poco más prolijo */
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Inputs: un look más consistente */
+.form-control, .form-select {
+  border-radius: 0.75rem;
+}
+
+.btn {
+  border-radius: 0.75rem;
+}
