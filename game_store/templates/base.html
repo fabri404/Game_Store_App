@@ -23,7 +23,7 @@
 
     <!-- Navbar principal -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="{% url 'index' %}">
                     <img src="{% static 'img/logo.png' %}" alt="Game Store" width="40" class="me-2">
@@ -87,13 +87,13 @@
 
                                     {% if user.is_authenticated %}
                                         <div class="avatar-sm rounded-circle overflow-hidden me-2"
-                                            style="width:32px; height:32px; background-color:#FFFFFF;">
+                                            style="width:32px; height:32px; background-color:#ffffff;">
                                     {% else %}
                                         <div class="avatar-sm rounded-circle overflow-hidden me-2"
-                                            style="width:32px; height:32px; background-color:#eee400;">
+                                            style="width:32px; height:32px; background-color:#ff0202;">
                                     {% endif %}
 
-                                            <img src="{% static 'img/avatares/default.webp' %}"
+                                            <img src="{% static 'img/portadas/avatar.png' %}"
                                                 alt="Avatar" class="rounded-circle"
                                                 style="width:100%; height:100%; object-fit:cover;">
                                         </div>
@@ -150,27 +150,27 @@
 
     {% block extra_js %}{% endblock %}
 
-        <script>
-    const root = document.documentElement;        // <html>
-    const btn = document.getElementById("toggle-theme");
+    <script>
+  const root = document.documentElement;        // <html>
+  const btn = document.getElementById("toggle-theme");
 
-    // Leer preferencia guardada
-    const saved = localStorage.getItem("bs-theme");
+  // Leer preferencia guardada
+  const saved = localStorage.getItem("bs-theme");
 
-    if (saved) {
-        root.setAttribute("data-bs-theme", saved);
-    } else {
-        root.setAttribute("data-bs-theme", "dark");  // tema inicial
-    }
+  if (saved) {
+    root.setAttribute("data-bs-theme", saved);
+  } else {
+    root.setAttribute("data-bs-theme", "dark");  // tema inicial
+  }
 
-    btn?.addEventListener("click", () => {
-        const current = root.getAttribute("data-bs-theme");
-        const next = current === "dark" ? "light" : "dark";
+  btn?.addEventListener("click", () => {
+    const current = root.getAttribute("data-bs-theme");
+    const next = current === "dark" ? "light" : "dark";
 
-        root.setAttribute("data-bs-theme", next);
-        localStorage.setItem("bs-theme", next);
-    });
-    </script>
+    root.setAttribute("data-bs-theme", next);
+    localStorage.setItem("bs-theme", next);
+  });
+</script>
 
 </body>
 </html>
