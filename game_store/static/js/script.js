@@ -80,3 +80,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+
+function ajaxifyForms(selector, onDone) {
+  document.querySelectorAll(selector).forEach(form => {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: {
+          "X-Requested-With": "XMLHttpRequest"
+        }
+      })
+        .then(r => r.json())
+        .then(onDone)
+        .catch(console.error);
+    });
+  });
+}
+
+function updateHeaderCounters(data) {
+  const favBadge = document.querySelector("#fav-count");
+  const cartBadge = document.querySelector("#cart-count");
+
+  if (favBadge) favBadge.textContent = data.favoritos;
+  if (cartBadge) cartBadge.textContent = data.carrito;
+
+  // Mostrar / ocultar si es 0
+  if (favBadge) favBadge.parentElement.classList.toggle("d-none", data.favoritos === 0);
+  if (cartBadge) cartBadge.parentElement.classList.toggle("d-none", data.carrito === 0);
+}
+
+ajaxifyForms(".js-cart-form", updateHeaderCounters);
+ajaxifyForms(".js-fav-form", updateHeaderCounters);

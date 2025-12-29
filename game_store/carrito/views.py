@@ -6,6 +6,11 @@ from .models import Carrito, Itemcarrito
 from catalogo.models import Juego
 from django.http import JsonResponse
 
+
+from favoritos.utils import favoritos_total_items   # si tu helper está en otro lado, dime
+from carrito.utils import carrito_total_items 
+
+
 def _safe_next_url(request, fallback_url: str) -> str:
     next_url = request.POST.get("next") or request.GET.get("next") or request.META.get("HTTP_REFERER")
     if not next_url:
@@ -23,17 +28,26 @@ def agregar_al_carrito(request, juego_id):
     juego = get_object_or_404(Juego, id=juego_id)
     carrito, _ = Carrito.objects.get_or_create(usuario=request.user)
 
-    itemcarrito, creado = Itemcarrito.objects.get_or_create(carrito=carrito, juego=juego)
+    itemcarrito, creado = Itemcarrito.objects.get_or_create(
+        carrito=carrito,
+        juego=juego
+    )
+
     if not creado:
-        itemcarrito.cantidad += 1
+        itemcarrito.cantidad += 0
+
     itemcarrito.save()
 
-    if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        return JsonResponse({"ok": True})
+    # 👉 SI ES AJAX → devolvemos SOLO los contadores (NO recarga página)
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        return JsonResponse({
+            "carrito": carrito_total_items(request),
+            "favoritos": favoritos_total_items(request),
+        })
 
+    # 👉 flujo normal (fallback clásico)
     fallback = reverse("catalogo:lista_juegos")
     return redirect(_safe_next_url(request, fallback))
-
 
 @login_required
 def ver_carrito(request):

@@ -43,9 +43,15 @@
                         <a href="{% url 'favoritos:ver_favoritos' %}" class="nav-link text-white position-relative">
                             <i class="fas fa-heart fa-lg"></i>
                             {% if favoritos_total_items > 0 %}
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small">
-                                    {{ favoritos_total_items }}
-                                </span>
+                            <span id="fav-count"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small">
+                                {{ favoritos_total_items }}
+                            </span>
+                            {% else %}
+                            <span id="fav-count"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small d-none">
+                                0
+                            </span>
                             {% endif %}
                         </a>
                     </li>
@@ -58,9 +64,15 @@
                         <a href="{% url 'carrito:ver_carrito' %}" class="nav-link text-white position-relative">
                             <i class="fas fa-shopping-cart fa-lg"></i>
                             {% if carrito_total_items > 0 %}
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small">
-                                    {{ carrito_total_items }}
-                                </span>
+                            <span id="cart-count"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small">
+                                {{ carrito_total_items }}
+                            </span>
+                            {% else %}
+                            <span id="cart-count"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small d-none">
+                                0
+                            </span>
                             {% endif %}
                         </a>
                     </li>
