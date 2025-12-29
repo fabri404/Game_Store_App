@@ -1,7 +1,21 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from urllib.parse import urlparse
 from .models import Carrito, Itemcarrito
 from catalogo.models import Juego
+from django.http import JsonResponse
+
+def _safe_next_url(request, fallback_url: str) -> str:
+    next_url = request.POST.get("next") or request.GET.get("next") or request.META.get("HTTP_REFERER")
+    if not next_url:
+        return fallback_url
+
+    parsed = urlparse(next_url)
+    if not parsed.netloc or parsed.netloc == request.get_host():
+        return next_url
+
+    return fallback_url
 
 
 @login_required
@@ -10,12 +24,15 @@ def agregar_al_carrito(request, juego_id):
     carrito, _ = Carrito.objects.get_or_create(usuario=request.user)
 
     itemcarrito, creado = Itemcarrito.objects.get_or_create(carrito=carrito, juego=juego)
-
     if not creado:
         itemcarrito.cantidad += 1
     itemcarrito.save()
 
-    return redirect('catalogo:detalle_juego', pk=juego_id)
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        return JsonResponse({"ok": True})
+
+    fallback = reverse("catalogo:lista_juegos")
+    return redirect(_safe_next_url(request, fallback))
 
 
 @login_required

@@ -42,6 +42,7 @@ def lista_juegos(request):
         "plat": plat,
         "order": order,
         "platform_categories": PLATFORM_CATEGORIES,
+        "current_url": request.get_full_path(),
     }
     return render(request, "catalogo/lista_juegos.html", context)
 

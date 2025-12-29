@@ -19,6 +19,8 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from catalogo.api import JuegoViewSet
+from django.conf import settings
+from django.conf.urls.static import static
 
 router = DefaultRouter()
 router.register(r'juegos', JuegoViewSet, basename='juego')
@@ -34,4 +36,5 @@ urlpatterns = [
     path('carrito/', include('carrito.urls')),
     path("favoritos/", include("favoritos.urls")),
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

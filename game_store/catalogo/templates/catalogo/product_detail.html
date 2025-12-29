@@ -4,65 +4,60 @@
 {% block title %}{{ juego.nombre }} - Game Store{% endblock %}
 
 {% block content %}
+{% with portada=juego.id|stringformat:"04d" %}
 <div class="container py-5">
-    <div class="row g-5 align-items-start">
+  <div class="row g-5 align-items-start">
 
-        <!-- Columna izquierda: Imagen del juego -->
-        <div class="col-12 col-md-5">
-            <div class="card shadow-sm border-0 overflow-hidden">
-                <img src="{% static 'img/portadas/' %}{{ juego.imagen }}" class="detalle-img rounded-3 img-fluid"
-                    alt="Imagen del juego {{ juego.nombre }}">
-            </div>
-        </div>
-
-        <!-- Columna derecha: Información del juego -->
-        <div class="col-12 col-md-7 text-start">
-
-            <!-- Nombre del juego -->
-            <h1 class="display-5 fw-bold mb-3 text-body">{{ juego.nombre }}</h1>
-
-            <!-- Precio destacado -->
-            <div class="mb-4">
-                <h2 class="text-success fw-bold">{{ juego.precio }} $</h2>
-                <small class="text-body-secondary">Impuestos incluidos</small>
-            </div>
-
-            <!-- Plataforma -->
-            <p class="text-body mb-4"><strong>Disponible en:</strong> {{ juego.plataforma }}</p>
-
-            <!-- Botones de acción principales -->
-            <div class="d-flex flex-column flex-sm-row gap-3 mb-5">
-                <a href="{% url 'carrito:agregar_al_carrito' juego.id %}"
-                    class="btn btn-success btn-md rounded-3 shadow-sm d-flex align-items-center justify-content-center">
-                    <i class="fas fa-shopping-cart me-2"></i>Añadir al carrito
-                </a>
-                <a href="{% url 'favoritos:agregar_favorito' juego.id %}"
-                    class="btn btn-outline-danger btn-md rounded-3 shadow-sm d-flex align-items-center justify-content-center">
-                    <i class="fas fa-heart me-2"></i>Agregar a favoritos
-                </a>
-                <a href="{% url 'catalogo:lista_juegos' %}"
-                    class="btn btn-secondary btn-md rounded-3 shadow-sm d-flex align-items-center justify-content-center mt-3 mt-sm-0">
-                    <i class="fas fa-arrow-left me-2"></i>Volver al catálogo
-                </a>
-            </div>
- 
-            <!-- Detalles del producto -->
-            <div class="mb-5">
-                <h5 class="fw-semibold mb-3 text-body">Detalles del producto</h5>
-                <p class="mb-1 text-body"><strong>Plataforma:</strong> {{ juego.plataforma }}</p>
-                {% if juego.descripcion %}
-                <p class="text-body text-body-secondary">{{ juego.descripcion }}</p>
-                {% endif %}
-            </div>
-
-            <!-- Reseñas -->
-            <div>
-                <h4 class="fw-semibold mb-3 text-body">Reseñas</h4>
-                <p class="text-body text-body-secondary fst-italic">Sección de reseñas de usuarios pendiente de implementación.</p>
-            </div>
-
-        </div>
+    <div class="col-12 col-md-5">
+      <div class="card shadow-sm border-0 overflow-hidden">
+        <img
+          src="{% static 'img/portadas/' %}{{ portada }}.webp"
+          class="rounded-3 img-fluid"
+          alt="Portada de {{ juego.nombre }}"
+          data-fallback="{% static 'img/portadas/default.webp' %}"
+          onerror="this.onerror=null;this.src=this.dataset.fallback;"
+        >
+      </div>
     </div>
-</div>
-{% endblock %}
 
+    <div class="col-12 col-md-7">
+      <h1 class="fw-bold mb-3 text-body">{{ juego.nombre }}</h1>
+
+      <div class="mb-3">
+        <span class="badge bg-secondary me-2">Plataforma</span>
+        <span class="text-body">{{ juego.plataforma }}</span>
+      </div>
+
+      <h3 class="text-success fw-semibold mb-4">{{ juego.precio }} $</h3>
+
+      <div class="d-flex flex-column flex-sm-row gap-3 mb-4">
+        <a href="{% url 'carrito:agregar_al_carrito' juego.id %}"
+           class="btn btn-success rounded-3 shadow-sm d-flex align-items-center justify-content-center">
+          <i class="fas fa-shopping-cart me-2"></i>Añadir al carrito
+        </a>
+
+        <a href="{% url 'favoritos:agregar_favorito' juego.id %}"
+           class="btn btn-outline-danger rounded-3 shadow-sm d-flex align-items-center justify-content-center">
+          <i class="fas fa-heart me-2"></i>Agregar a favoritos
+        </a>
+
+        <a href="{% url 'catalogo:lista_juegos' %}"
+           class="btn btn-secondary rounded-3 shadow-sm d-flex align-items-center justify-content-center">
+          <i class="fas fa-arrow-left me-2"></i>Volver al catálogo
+        </a>
+      </div>
+
+      <div class="mb-4">
+        <h5 class="fw-semibold mb-2 text-body">Detalles del producto</h5>
+        <p class="mb-1 text-body"><strong>Plataforma:</strong> {{ juego.plataforma }}</p>
+
+        {% if juego.descripcion %}
+          <p class="text-body text-body-secondary">{{ juego.descripcion }}</p>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endwith %}
+{% endblock %}

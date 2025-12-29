@@ -1,34 +1,82 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const btn = document.getElementById("toggle-theme");
-    const html = document.documentElement;
+document.addEventListener("DOMContentLoaded", () => {
+  function setBadge(id, value) {
+    const el = document.getElementById(id);
+    if (!el) return;
 
-    // Recuperar el tema guardado en localStorage al cargar la página
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-        html.setAttribute("data-bs-theme", savedTheme);
+    const n = Number(value || 0);
+    el.textContent = String(n);
+
+    if (n <= 0) el.classList.add("d-none");
+    else el.classList.remove("d-none");
+  }
+
+  async function postFormNoReload(form) {
+    const url = form.action;
+    const formData = new FormData(form);
+
+    const csrf = form.querySelector('input[name="csrfmiddlewaretoken"]')?.value;
+
+    let resp;
+    try {
+      resp = await fetch(url, {
+        method: "POST",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          ...(csrf ? { "X-CSRFToken": csrf } : {}),
+        },
+        body: formData,
+      });
+    } catch (err) {
+      console.error("Fetch error:", err);
+      return;
     }
 
-    btn.addEventListener("click", function () {
-        const current = html.getAttribute("data-bs-theme");
-        const next = current === "dark" ? "light" : "dark";
-        html.setAttribute("data-bs-theme", next);
+    // Si no está logueado, Django redirige al login -> navegamos ahí
+    if (resp.redirected) {
+      window.location.href = resp.url;
+      return;
+    }
 
-        // Guardar el tema elegido en localStorage
-        localStorage.setItem("theme", next);
+    if (!resp.ok) {
+      console.error("HTTP error:", resp.status);
+      return;
+    }
+
+    // Si backend responde JSON con contadores, actualizamos badges
+    const ct = resp.headers.get("content-type") || "";
+    if (ct.includes("application/json")) {
+      const data = await resp.json();
+
+      if (typeof data.carrito_total_items !== "undefined") {
+        setBadge("carrito-badge", data.carrito_total_items);
+      }
+      if (typeof data.favoritos_total_items !== "undefined") {
+        setBadge("favoritos-badge", data.favoritos_total_items);
+      }
+    }
+  }
+
+  // ---- FAVORITOS ----
+  document.querySelectorAll(".js-fav-form").forEach((form) => {
+    // Clave: cortar bubbling para que no dispare un click en la card
+    // NO usamos preventDefault acá
+    form.addEventListener("click", (e) => e.stopPropagation());
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      postFormNoReload(form);
     });
-});
+  });
 
-// Mostrar/ocultar contraseña
-function togglePassword(fieldId) {
-    const field = document.getElementById(fieldId);
-    const icon = document.getElementById('icon-' + fieldId);
-    if (field.type === "password") {
-        field.type = "text";
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
-    } else {
-        field.type = "password";
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
-    }
-}
+  // ---- CARRITO ----
+  document.querySelectorAll(".js-cart-form").forEach((form) => {
+    form.addEventListener("click", (e) => e.stopPropagation());
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      postFormNoReload(form);
+    });
+  });
+});

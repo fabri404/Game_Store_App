@@ -91,6 +91,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'game_store.wsgi.application'
 
+# Media files (Uploaded by users)
+
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
