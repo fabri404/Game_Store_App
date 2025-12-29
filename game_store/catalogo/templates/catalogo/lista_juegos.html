@@ -47,20 +47,23 @@
       <div class="col">
         <div class="card h-100 shadow-sm border-0 juego-card">
 
-          <!-- Imagen del juego con proporción fija -->
+          <!-- Imagen del juego -->
             
             {% with id_str=juego.id|stringformat:"04d" %}
               {% if juego.portada %}
+                <!-- Usa la portada subida en el modelo -->
                 <img
                   src="{{ juego.portada.url }}"
                   class="card-img-top"
                   alt="{{ juego.nombre }}"
                 >
               {% else %}
+                <!-- Intenta usar la portada estática 000X.webp, si no existe cae en not_found -->
                 <img
                   src="{% static 'img/portadas/' %}{{ id_str }}.webp"
                   class="card-img-top"
                   alt="{{ juego.nombre }}"
+                  onerror='this.onerror=null;this.src="{% static "img/portadas/not_found.webp" %}";'
                 >
               {% endif %}
             {% endwith %}
