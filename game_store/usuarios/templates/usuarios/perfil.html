@@ -4,7 +4,12 @@
 {% block title %}Perfil{% endblock %}
 
 {% block content %}
-<h2 class="text-body">Bienvenido, {{ user.username }}</h2>
+<h1>--</h1>
+<h1 class="text-body">Perfil de {{ user.username }}</h1>
+<h2 class="text-body">Lista de favoritos:</h2>
+<a href="{% url 'favoritos:ver_favoritos' %}" class="btn btn-outline-light">favoritos</a>
+<h2 class="text-body">Carrito de compras:</h2>
+<a href="{% url 'carrito:ver_carrito' %}" class="btn btn-outline-light">Carrito</a>
 <p class="text-body">Email: {{ user.email }}</p>
-<a href="{% url 'logout' %}" class="btn btn-danger">Cerrar sesión</a>
-{% endblock %}
+<a href="{% url 'logout' %}" class="btn btn-danger">Cerrar sesión</a>   
+{% endblock %}  

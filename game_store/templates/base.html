@@ -26,7 +26,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="{% url 'index' %}">
-                    <img src="{% static 'img/logo.png' %}" alt="Game Store" width="40" class="me-2">
+                    <img src="{% static 'img/logo.png' %}" alt="Game Store" width="44" class="me-2">
                     Game Store
                 </a>
 
@@ -99,17 +99,19 @@
 
                                     {% if user.is_authenticated %}
                                         <div class="avatar-sm rounded-circle overflow-hidden me-2"
-                                            style="width:32px; height:32px; background-color:#ffffff;">
-                                    {% else %}
-                                        <div class="avatar-sm rounded-circle overflow-hidden me-2"
-                                            style="width:32px; height:32px; background-color:#ff0202;">
-                                    {% endif %}
+                                            style="width:32px; height:32px; background-color:#000000;">
 
-                                            <img src="{% static 'img/portadas/avatar.png' %}"
+                                                <img src="{% static 'img/portadas/avatar.png' %}"
                                                 alt="Avatar" class="rounded-circle"
                                                 style="width:100%; height:100%; object-fit:cover;">
+                                    {% else %}
+                                        <div class="avatar-sm rounded-circle overflow-hidden me-2"
+                                            style="width:32px; height:32px; background-color:#f2f2f2;">
+                                                <img src="{% static 'img/portadas/avatar_no_login.png' %}"
+                                                alt="Avatar" class="rounded-circle"
+                                                style="width:100%; height:100%; object-fit:cover;">
+                                    {% endif %}
                                         </div>
-
                                     <span class="text-white">
                                         Hola,
                                         {% if user.is_authenticated %}
