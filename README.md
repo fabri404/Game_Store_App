@@ -31,7 +31,7 @@ Además, incluye:
 
 API REST disponible para integraciones futuras.
 
-Cifrado de contraseñas para usuarios que se registren (aunque no haya sistema de login completo aún).
+Cifrado de contraseñas para usuarios que se registren (aunque no haya sistema de autenticación completo aún).
 
 Arquitectura preparada para escalar.
 
@@ -111,7 +111,7 @@ Administrar registros.
 Este panel es ideal para cargar contenido de manera rápida e intuitiva, sin escribir código.
 
 6. API y carga de juegos
-6.1 Endpoints principales (ejemplo)
+6.1 Endpoints principales (SOLO CON LOS PERMISOS REQUERIDOS)
 
 GET /catalogo/ — listar juegos
 
@@ -121,27 +121,9 @@ POST /catalogo/nuevo — cargar juego (API)
 
 DELETE /catalogo/<id> — eliminar
 
-(La estructura real puede variar según evolución del proyecto.)
 
 7. Cargar juegos de ejemplo
-7.1 Desde script Django
-
-Ejemplo ejecutable:
-
-from catalogo.models import Juego
-
-Juego.objects.create(
-    nombre="Night Mode",
-    precio=19.99,
-    plataforma="PC"
-)
-
-
-Ejecutar con:
-
-python manage.py shell
-
-7.2 Desde el panel admin (recomendado)
+ Desde el panel admin (recomendado)
 
 Ingresar a /admin
 
@@ -152,8 +134,6 @@ Click en Agregar
 Completar formulario
 
 Guardar
-
-Más visual, menos propenso a errores.
 
 8. Estructura del proyecto
 Game_Store_App/
